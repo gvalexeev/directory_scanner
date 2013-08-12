@@ -20,7 +20,7 @@ public class Show implements ICommand {
 
     @Override
     public void init(List<String> params) {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
     @Override

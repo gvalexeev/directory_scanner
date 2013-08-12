@@ -3,9 +3,11 @@ package command.impl;
 import command.core.ICommand;
 import command.params.ScanParam;
 import scanner.FolderScanner;
-import validation.Checker;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,12 +34,16 @@ public class Scan implements ICommand {
     public List<String> validate() {
         List<String> errors = new ArrayList<>();
 
-        for (ScanParam param : ScanParam.values()) {
-            String result = param.validate(paramsMap.get(param));
+        if (paramsMap.size() > 0) {
+            for (ScanParam param : ScanParam.values()) {
+                String result = param.validate(paramsMap.get(param));
 
-            if (result != null && result.trim().length() != 0) {
-                errors.add(result);
+                if (result != null && result.trim().length() != 0) {
+                    errors.add(result);
+                }
             }
+        } else {
+            errors.add("No params specified.");
         }
 
         return errors;
@@ -47,7 +53,7 @@ public class Scan implements ICommand {
     @Override
     public void execute(Map<String, FolderScanner> threadMap) {
         String threadName = "scan:" + paramsMap;
-        FolderScanner folderScanner = new FolderScanner(this);
+        FolderScanner folderScanner = new FolderScanner(paramsMap);
         folderScanner.setName(threadName);
         folderScanner.start();
 

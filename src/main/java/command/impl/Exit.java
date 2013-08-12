@@ -30,14 +30,26 @@ public class Exit implements ICommand {
 
     @Override
     public void execute(Map<String, FolderScanner> threadMap) {
-        for (FolderScanner folderScanner : threadMap.values()) {
-            folderScanner.terminate();
+        for (FolderScanner folderScannerThread : threadMap.values()) {
+            if (folderScannerThread.getState() == Thread.State.TIMED_WAITING) {
+                folderScannerThread.interrupt();
+            } else {
+                folderScannerThread.terminate();
 
-            try {
-                folderScanner.join();
-            } catch (InterruptedException e) {
-                log.warn("Thread has been interrupted!");
+                try {
+                    folderScannerThread.join();
+                } catch (InterruptedException e) {
+                    log.warn("Thread has been interrupted!");
+                }
+//                while(folderScannerThread.) {
+//                }
             }
+
+//            try {
+//                folderScannerThread.join();
+//            } catch (InterruptedException e) {
+//                log.warn("Thread has been interrupted!");
+//            }
         }
     }
 }

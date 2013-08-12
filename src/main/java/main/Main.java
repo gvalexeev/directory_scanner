@@ -1,9 +1,7 @@
 package main;
 
-import command.core.ICommand;
-import command.impl.Exit;
-import org.apache.log4j.Logger;
 import manager.CommandManager;
+import org.apache.log4j.Logger;
 import scanner.FolderScanner;
 
 import java.util.HashMap;
@@ -35,12 +33,12 @@ public class Main {
             manager.execute(threadMap);
 
             if (manager.isExitCommand()) {
-                try {
-                    System.out.println("Waiting for other threads...");
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    log.warn("Interrupted");
-                }
+//                try {
+//                    System.out.println("Waiting for other threads...");
+//                    Thread.sleep(10000);
+//                } catch (InterruptedException e) {
+//                    log.warn("Interrupted");
+//                }
 
                 break;
             }

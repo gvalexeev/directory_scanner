@@ -27,13 +27,13 @@ public class Error implements ICommand {
 
     @Override
     public List<String> validate() {
-        return Collections.emptyList();  //To change body of implemented methods use File | Settings | File Templates.
+        return Collections.emptyList();
     }
 
     @Override
     public void execute(Map<String, FolderScanner> threadMap) {
         for (String error : errorsList) {
-            log.info(error);
+            System.out.println(error);
         }
     }
 }

@@ -1,10 +1,11 @@
 package scanner;
 
-import command.impl.Scan;
 import command.params.ScanParam;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 /**
@@ -16,10 +17,10 @@ import java.util.Map;
  */
 
 public class FolderScanner extends Thread {
-    private Scan scanCommand;
+    private Map<ScanParam, String> paramsMap;
 
-    public FolderScanner(Scan scanCommand) {
-        this.scanCommand = scanCommand;
+    public FolderScanner(Map<ScanParam, String> params) {
+        this.paramsMap = params;
     }
 
     public volatile boolean isRunning = true;
@@ -32,8 +33,6 @@ public class FolderScanner extends Thread {
     public void run() {
         while (isRunning) {
             try {
-                final Map<ScanParam, String> paramsMap = scanCommand.getParamsMap();
-
                 Path startPath = Paths.get(paramsMap.get(ScanParam.INPUT_DIR));
 
                 Files.walkFileTree(startPath,
@@ -46,8 +45,11 @@ public class FolderScanner extends Thread {
                         )
                 );
 
-                Thread.sleep(Long.valueOf(paramsMap.get(ScanParam.WAIT_INTERVAL)));
+                if (isRunning) {
+                    Thread.sleep(Long.valueOf(paramsMap.get(ScanParam.WAIT_INTERVAL)));
+                }
             } catch (IOException e) {
+                //Todo
                 e.printStackTrace();
             } catch (InterruptedException e) {
                 isRunning = false;

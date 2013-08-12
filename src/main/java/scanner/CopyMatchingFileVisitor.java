@@ -2,11 +2,9 @@ package scanner;
 
 import org.apache.log4j.Logger;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,21 +34,14 @@ public class CopyMatchingFileVisitor extends SimpleFileVisitor<Path> {
 
     // Compares the glob pattern against
     // the file or directory name.
-    void copy(Path source) throws IOException {
+    private void copy(Path source) throws IOException {
         Path name = source.getFileName();
 
         if (name != null && matcher.matches(name)) {
-            Path relativePath = source.getFileName();
-
-            //TODO: не работает
-            if (includeSubfolders) {
-                relativePath = source.relativize(inputDir);
-            }
-
             if (autoDelete) {
-                Files.move(source, outputDir.resolve(relativePath), StandardCopyOption.REPLACE_EXISTING);
+                Files.move(source, outputDir.resolve(name), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
             } else {
-                Files.copy(source, outputDir.resolve(relativePath), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(source, outputDir.resolve(name), StandardCopyOption.REPLACE_EXISTING);
             }
         }
     }
@@ -63,7 +54,8 @@ public class CopyMatchingFileVisitor extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-        return FileVisitResult.CONTINUE;
+        //Нет копирования структуры папок
+        return !includeSubfolders && !dir.equals(inputDir) ? FileVisitResult.SKIP_SUBTREE : FileVisitResult.CONTINUE;
     }
 
     @Override

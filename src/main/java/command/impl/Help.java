@@ -1,7 +1,7 @@
 package command.impl;
 
 import command.core.ICommand;
-import command.params.ScanParam;
+import command.params.HelpParam;
 import org.apache.log4j.Logger;
 import scanner.FolderScanner;
 
@@ -18,10 +18,19 @@ import java.util.Map;
  */
 public class Help implements ICommand {
     private static final Logger log = Logger.getRootLogger();
+    private HelpParam commandParam;
 
     @Override
     public void init(List<String> params) {
-        //do nothing. Maybe list command help
+        if (params.size() == 2) {
+            String commandName = params.get(1);
+
+            for (HelpParam param : HelpParam.values()) {
+                if (param.getCommand().equalsIgnoreCase(commandName)) {
+                    commandParam = param;
+                }
+            }
+        }
     }
 
     @Override
@@ -31,9 +40,12 @@ public class Help implements ICommand {
 
     @Override
     public void execute(Map<String, FolderScanner> threadMap) {
-        log.info("Scan command. Usage: scan ... <options>\n");
-        for (ScanParam param : ScanParam.values()) {
-            log.info(param.description());
+        if (commandParam != null) {
+            System.out.println(commandParam.getInfo());
+        } else {
+            for (HelpParam helpParam : HelpParam.values()) {
+                System.out.println(helpParam.getInfo());
+            }
         }
     }
 }
