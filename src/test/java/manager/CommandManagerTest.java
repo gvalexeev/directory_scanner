@@ -1,17 +1,18 @@
 package manager;
 
-import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gera
- * Date: 11.08.13
- * Time: 16:09
- * To change this template use File | Settings | File Templates.
+ * $Id
+ * <p>Title: </p>
+ * <p>Description: </p>
+ * <p>Author: g.alexeev (g.alexeev@i-teco.ru)</p>
+ * <p>Date: 10.08.13</p>
+ *
+ * @version 1.0
  */
 @RunWith(Theories.class)
 public class CommandManagerTest {

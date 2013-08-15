@@ -3,11 +3,15 @@ package command.params;
 import validation.Checker;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gera
- * Date: 10.08.13
- * Time: 15:32
- * To change this template use File | Settings | File Templates.
+ * $Id
+ * <p>Title: Параметры команды scan</p>
+ * <p>Description:
+ * Каждый параметр содержит свои описание и значение командной строки, а также умеет валидироваться :)
+ * </p>
+ * <p>Author: g.alexeev (g.alexeev@i-teco.ru)</p>
+ * <p>Date: 10.08.13</p>
+ *
+ * @version 1.0
  */
 public enum ScanParam {
     INPUT_DIR("inputDir", "-inputDir <path> : Input directory for scan operation\n") {
@@ -22,10 +26,10 @@ public enum ScanParam {
             return Checker.checkPath(value);
         }
     },
-    MASK("mask", "-mask <wild_card_expression> : File mask. Has to be a valid wildcard expression\n") {
+    MASK("mask", "-mask <regexp_expression> : File mask. Has to be a valid regexp expression\n") {
         @Override
         public String validate(String value) {
-            return Checker.checkWildcard(value);
+            return Checker.checkRegexp(value);
         }
     },
     WAIT_INTERVAL("waitInterval", "-waitInterval <positive_number> : Scanner cycle interval. Has to be a positive decimal number\n") {
@@ -55,7 +59,7 @@ public enum ScanParam {
         this.param = name;
     }
 
-    public String param() {
+    public String paramName() {
         return param;
     }
 

@@ -18,11 +18,13 @@ import java.util.Arrays;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gera
- * Date: 10.08.13
- * Time: 18:09
- * To change this template use File | Settings | File Templates.
+ * $Id
+ * <p>Title: </p>
+ * <p>Description: </p>
+ * <p>Author: g.alexeev (g.alexeev@i-teco.ru)</p>
+ * <p>Date: 10.08.13</p>
+ *
+ * @version 1.0
  */
 @RunWith(Theories.class)
 public class CopyMatchingFileVisitorTest {

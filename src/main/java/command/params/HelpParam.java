@@ -1,19 +1,9 @@
-/*
-* $Id
-*
-* (C) Copyright 1997 i-Teco, CJSK. All Rights reserved.
-* i-Teco PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
-*
-* Эксклюзивные права 1997 i-Teco, ЗАО.
-* Данные исходные коды не могут использоваться и быть изменены
-* без официального разрешения компании i-Teco.          
-*/
 package command.params;
 
 /**
  * $Id
- * <p>Title: </p>
- * <p>Description: </p>
+ * <p>Title: Параметры команды help</p>
+ * <p>Description: каждая команда имеет decription и умеет печатать информацию о допустимых параметрах</p>
  * <p>Author: g.alexeev (g.alexeev@i-teco.ru)</p>
  * <p>Date: 12.08.13</p>
  *

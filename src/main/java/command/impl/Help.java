@@ -10,11 +10,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gera
- * Date: 11.08.13
- * Time: 13:53
- * To change this template use File | Settings | File Templates.
+ * $Id
+ * <p>Title: Команда help</p>
+ * <p>Description:
+ * Выводит много полезной информации по использованию данного функционала.
+ * Если ввести help<command_name> то выведется ман по указанной команде
+ * </p>
+ * <p>Author: g.alexeev (g.alexeev@i-teco.ru)</p>
+ * <p>Date: 10.08.13</p>
+ *
+ * @version 1.0
  */
 public class Help implements ICommand {
     private static final Logger log = Logger.getRootLogger();

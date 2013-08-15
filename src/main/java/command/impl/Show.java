@@ -9,11 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gera
- * Date: 11.08.13
- * Time: 13:52
- * To change this template use File | Settings | File Templates.
+ * $Id
+ * <p>Title: Команда show</p>
+ * <p>Description:
+ * Выводит на экран список всех запущенных потоков с их параметрами
+ * </p>
+ * <p>Author: g.alexeev (g.alexeev@i-teco.ru)</p>
+ * <p>Date: 10.08.13</p>
+ *
+ * @version 1.0
  */
 public class Show implements ICommand {
     private static final Logger log = Logger.getRootLogger();
@@ -30,8 +34,13 @@ public class Show implements ICommand {
 
     @Override
     public void execute(Map<String, FolderScanner> threadMap) {
-       for (String name : threadMap.keySet()) {
-           log.info(name);
-       }
+        StringBuilder builder = new StringBuilder("Working threads:\n");
+
+        for (Map.Entry<String, FolderScanner> entry : threadMap.entrySet()) {
+            builder.append("\tThread name: ").append(entry.getKey()).append("\n\t").
+                    append(entry.getValue().getParamsMap()).append("\n\n");
+        }
+
+        System.out.print(builder);
     }
 }

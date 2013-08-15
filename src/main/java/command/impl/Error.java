@@ -3,18 +3,19 @@ package command.impl;
 import command.core.ICommand;
 import org.apache.log4j.Logger;
 import scanner.FolderScanner;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gera
- * Date: 11.08.13
- * Time: 15:00
- * To change this template use File | Settings | File Templates.
+ * $Id
+ * <p>Title: Команда error</p>
+ * <p>Description: Является служебной командой, недоступной пользователю. Используется для вывода ошибок валидации</p>
+ * <p>Author: g.alexeev (g.alexeev@i-teco.ru)</p>
+ * <p>Date: 10.08.13</p>
+ *
+ * @version 1.0
  */
 public class Error implements ICommand {
     private static final Logger log = Logger.getRootLogger();

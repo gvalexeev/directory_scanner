@@ -3,12 +3,7 @@ package command;
 import command.impl.Exit;
 import command.impl.Scan;
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
-import org.junit.experimental.theories.Theories;
-import org.junit.experimental.theories.Theory;
-import org.junit.runner.RunWith;
 import scanner.FolderScanner;
 
 import java.util.Arrays;
@@ -20,11 +15,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gera
- * Date: 11.08.13
- * Time: 16:11
- * To change this template use File | Settings | File Templates.
+ * $Id
+ * <p>Title: </p>
+ * <p>Description: </p>
+ * <p>Author: g.alexeev (g.alexeev@i-teco.ru)</p>
+ * <p>Date: 10.08.13</p>
+ *
+ * @version 1.0
  */
 public class ExitTest {
     private static final Logger log = Logger.getRootLogger();

@@ -9,11 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Gera
- * Date: 11.08.13
- * Time: 13:52
- * To change this template use File | Settings | File Templates.
+ * $Id
+ * <p>Title: Команда exit</p>
+ * <p>Description:
+ * Безопасная остановка работающих потоков и выход из программы.
+ * </p>
+ * <p>Author: g.alexeev (g.alexeev@i-teco.ru)</p>
+ * <p>Date: 10.08.13</p>
+ *
+ * @version 1.0
  */
 public class Exit implements ICommand {
     private static final Logger log = Logger.getRootLogger();
@@ -30,10 +34,13 @@ public class Exit implements ICommand {
 
     @Override
     public void execute(Map<String, FolderScanner> threadMap) {
+        //Пробегаемся по мапе
         for (FolderScanner folderScannerThread : threadMap.values()) {
+            //Если поток спит, то допустимо остановить его грубо(interrupt()).
             if (folderScannerThread.getState() == Thread.State.TIMED_WAITING) {
                 folderScannerThread.interrupt();
             } else {
+                //Если нет, то проставляем ему флаг остановки и джоинимся к нему.
                 folderScannerThread.terminate();
 
                 try {
@@ -41,15 +48,7 @@ public class Exit implements ICommand {
                 } catch (InterruptedException e) {
                     log.warn("Thread has been interrupted!");
                 }
-//                while(folderScannerThread.) {
-//                }
             }
-
-//            try {
-//                folderScannerThread.join();
-//            } catch (InterruptedException e) {
-//                log.warn("Thread has been interrupted!");
-//            }
         }
     }
 }
