@@ -3,6 +3,8 @@ package command;
 import command.impl.Exit;
 import command.impl.Scan;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import scanner.FolderScanner;
 
@@ -27,8 +29,8 @@ public class ExitTest {
     private static final Logger log = Logger.getRootLogger();
     private final Map<String, FolderScanner> threadMap = new HashMap<>();
 
-    @Test
-    public void testCopy() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         String line = "scan -inputDir d:/test/in -outputDir d:/test/out -mask *test*.xml -waitInterval 60000 -includeSubfolders false -autoDelete true";
 
         List<String> list = Arrays.asList(line.split(" "));
@@ -36,7 +38,10 @@ public class ExitTest {
         scan.init(list);
         scan.validate();
         scan.execute(threadMap);
+    }
 
+    @Test
+    public void testCopy() throws Exception {
         assertTrue(threadMap.size() == 1);
 
         FolderScanner scanner = (FolderScanner) threadMap.values().toArray()[0];
@@ -45,5 +50,11 @@ public class ExitTest {
         Exit exit = new Exit();
         exit.execute(threadMap);
         assertFalse(scanner.isAlive());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+
+
     }
 }

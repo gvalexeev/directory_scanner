@@ -2,13 +2,14 @@ package command;
 
 import command.impl.Exit;
 import command.impl.Scan;
-import org.apache.log4j.Logger;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 import scanner.FolderScanner;
+import test.core.TestResourceManager;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,8 +29,12 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(Theories.class)
 public class ScanTest {
-    private static final Logger log = Logger.getRootLogger();
     private Map<String, FolderScanner> threadMap = new HashMap<>();
+
+    @Before
+    public void setUp() throws Exception {
+        TestResourceManager.createFileResources();
+    }
 
     @DataPoints
     public static Object[][] correctParams = new Object[][]{
@@ -49,19 +54,26 @@ public class ScanTest {
                     1,
                     false
 
+            },
+            {
+                    "scan -inputDir",
+                    0,
+                    1,
+                    false
+
             }
     };
 
     @Theory
-    public void testCopy(Object... data) throws Exception {
+    public void test(Object... data) throws Exception {
         List<String> paramslist = Arrays.asList(((String) data[0]).split(" "));
         Scan scan = new Scan();
-        scan.init(paramslist);
+
+        scan.init(paramslist.subList(1, paramslist.size()));
         assertTrue(scan.getParamsMap().toString(), scan.getParamsMap().size() == data[1]);
 
         List<String> errorsList = scan.validate();
-        log.error(errorsList);
-        assertTrue(errorsList.size() == data[2]);
+        assertTrue("Errors list size is " + errorsList.size() + "\nErrors:" + errorsList, errorsList.size() == data[2]);
 
 
         if ((Boolean) data[3]) {
@@ -77,10 +89,8 @@ public class ScanTest {
             Exit exit = new Exit();
             exit.execute(threadMap);
             threadMap.clear();
-//            for (FolderScanner scanner : threadMap.values()) {
-//
-//                scanner.interrupt();
-//            }
         }
+
+        TestResourceManager.destroyResources();
     }
 }

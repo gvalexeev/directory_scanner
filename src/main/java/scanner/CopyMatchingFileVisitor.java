@@ -34,9 +34,9 @@ public class CopyMatchingFileVisitor extends SimpleFileVisitor<Path> {
      * @param includeSubfolders - флаг, сигнализирующий о включении поддиректорий в путь обхода
      * @param autoDelete - удалять найденный файлы?
      */
-    public CopyMatchingFileVisitor(Path inputDir, String outputDir, String mask, boolean includeSubfolders, boolean autoDelete) {
+    public CopyMatchingFileVisitor(Path inputDir, Path outputDir, String mask, boolean includeSubfolders, boolean autoDelete) {
         this.inputDir = inputDir;
-        this.outputDir = Paths.get(outputDir);
+        this.outputDir = outputDir;
         this.includeSubfolders = includeSubfolders;
         this.autoDelete = autoDelete;
 

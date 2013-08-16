@@ -27,6 +27,7 @@ public class CommandManager {
 
     /**
      * Метод распознавания строковой команды.
+     *
      * @param input - строка с параметризированной командой
      * @return - объект - представдление соответствующей команды.
      */
@@ -52,6 +53,10 @@ public class CommandManager {
                 command = new Help();
         }
 
+        if (paramsList.size() > 1) {
+            paramsList = paramsList.subList(1, paramsList.size());
+        }
+
         //инициализация команды
         command.init(paramsList);
         //валидация
@@ -68,6 +73,7 @@ public class CommandManager {
 
     /**
      * Выполнить команду
+     *
      * @param threadMap
      */
     public void execute(Map<String, FolderScanner> threadMap) {
@@ -78,6 +84,7 @@ public class CommandManager {
 
     /**
      * Метод, сигнализирующий о том, что была введена команда exit
+     *
      * @return
      */
     public boolean isExitCommand() {

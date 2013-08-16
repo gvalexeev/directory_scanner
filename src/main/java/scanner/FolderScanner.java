@@ -60,7 +60,7 @@ public class FolderScanner extends Thread {
                 Files.walkFileTree(startPath,
                         new CopyMatchingFileVisitor(
                                 startPath,
-                                paramsMap.get(ScanParam.OUTPUT_DIR),
+                                Paths.get(paramsMap.get(ScanParam.OUTPUT_DIR)),
                                 paramsMap.get(ScanParam.MASK),
                                 Boolean.parseBoolean(paramsMap.get(ScanParam.INCLUDE_SUB_FOLDERS)),
                                 Boolean.parseBoolean(paramsMap.get(ScanParam.AUTO_DELETE))
@@ -77,7 +77,7 @@ public class FolderScanner extends Thread {
                 //При выбрасывании исключения, прекращаем цикл.
                 isRunning = false;
             } catch (InterruptedException e) {
-                log.error("Thread has been interrupted");
+                log.info("Thread interrupted");
                 isRunning = false;
             }
         }
@@ -104,10 +104,9 @@ public class FolderScanner extends Thread {
         props.setProperty("log4j.appender.thread.threshold", "INFO");
         props.setProperty("log4j.appender.thread.layout", "org.apache.log4j.PatternLayout");
         props.setProperty("log4j.appender.thread.layout.ConversionPattern", "%d{ABSOLUTE} %5p [%t] %c - %m%n");
-//        props.setProperty("log4j.appender.stdout", "org.apache.log4j.ConsoleAppender");
         props.setProperty("log4j.logger." + Thread.currentThread().getName(), "INFO, thread");
 
         PropertyConfigurator.configure(props);
-        log.info("thread started :" + Thread.currentThread().getName());
+        log.info("Thread started :" + Thread.currentThread().getName());
     }
 }

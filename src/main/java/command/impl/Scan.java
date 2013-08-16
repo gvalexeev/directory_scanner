@@ -28,7 +28,7 @@ public class Scan implements ICommand {
         for (ScanParam param : ScanParam.values()) {
             int index = params.indexOf("-" + param.paramName());
 
-            if (index != -1 && params.size() >= (index + 1)) {
+            if (index != -1 && params.size() > (index + 1)) {
                 String paramValue = params.get(index + 1);
                 paramsMap.put(param, paramValue);
             }
@@ -44,7 +44,7 @@ public class Scan implements ICommand {
                 String result = param.validate(paramsMap.get(param));
 
                 if (result != null && result.trim().length() != 0) {
-                    errors.add(result);
+                    errors.add("Validation of " + param.paramName() + " param failed: " + result);
                 }
             }
         } else {

@@ -27,8 +27,8 @@ public class Help implements ICommand {
 
     @Override
     public void init(List<String> params) {
-        if (params.size() == 2) {
-            String commandName = params.get(1);
+        if (params.size() == 1) {
+            String commandName = params.get(0);
 
             for (HelpParam param : HelpParam.values()) {
                 if (param.getCommand().equalsIgnoreCase(commandName)) {

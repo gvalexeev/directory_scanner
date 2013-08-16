@@ -24,7 +24,7 @@ public class Show implements ICommand {
 
     @Override
     public void init(List<String> params) {
-
+       //Можно сделать показ потоков по папкам.
     }
 
     @Override

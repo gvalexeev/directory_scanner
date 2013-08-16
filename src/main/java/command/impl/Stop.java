@@ -28,8 +28,8 @@ public class Stop implements ICommand {
 
     @Override
     public void init(List<String> threadIds) {
-        for (int i = 1; i < threadIds.size(); i++) {
-            threadNameList.add(threadIds.get(i));
+        for (String threadId : threadIds) {
+            threadNameList.add(threadId);
         }
     }
 
