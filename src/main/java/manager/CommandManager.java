@@ -1,11 +1,14 @@
 package manager;
 
 import command.core.ICommand;
-import command.impl.*;
 import command.impl.Error;
-import scanner.*;
+import command.impl.*;
+import scanner.FolderScanner;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * $Id
@@ -32,8 +35,11 @@ public class CommandManager {
      * @return - объект - представдление соответствующей команды.
      */
     public ICommand resolve(String input) {
-        List<String> paramsList = Arrays.asList(input.split(" "));
-        String commandStr = paramsList.get(0);
+        List<String> inputList = Arrays.asList(input.split(" "));
+        //Получаем команду
+        String commandStr = inputList.get(0);
+        //Перегоняем параметры в отдельный листинг
+        List<String> paramsList = inputList.size() > 1 ? inputList.subList(1, inputList.size()) : Collections.<String>emptyList();
 
         switch (commandStr) {
             case "scan":
@@ -51,10 +57,6 @@ public class CommandManager {
                 break;
             default:
                 command = new Help();
-        }
-
-        if (paramsList.size() > 1) {
-            paramsList = paramsList.subList(1, paramsList.size());
         }
 
         //инициализация команды

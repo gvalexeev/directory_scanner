@@ -4,10 +4,7 @@ import command.core.ICommand;
 import org.apache.log4j.Logger;
 import scanner.FolderScanner;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * $Id
@@ -24,18 +21,18 @@ import java.util.Map;
  */
 public class Stop implements ICommand {
     private static final Logger log = Logger.getRootLogger();
-    private List<String> threadNameList = new ArrayList<>();
+    private List<String> threadNameList;
 
     @Override
     public void init(List<String> threadIds) {
-        for (String threadId : threadIds) {
-            threadNameList.add(threadId);
-        }
+        this.threadNameList = threadIds;
     }
 
     @Override
     public List<String> validate() {
-        return Collections.emptyList();
+        return threadNameList.size() == 0 ?
+                Arrays.asList("No thread name has been entered! Please specify valid thread name or see help for syntax.") :
+                Collections.<String>emptyList();
     }
 
     @Override
@@ -54,14 +51,14 @@ public class Stop implements ICommand {
                     try {
                         scanner.join();
                     } catch (InterruptedException e) {
-                        log.warn("Thread has been interrupted!");
+                        log.warn("Thread has been interrupted! " + scanner.getName());
                     }
                 }
 
                 threadMap.remove(threadName);
                 System.out.println("Thread " + threadName + " successfully stopped");
             } else {
-                illegalThreadNamesList.add(threadName + "\n");
+                illegalThreadNamesList.add(threadName);
             }
 
         }

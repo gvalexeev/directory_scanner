@@ -42,7 +42,7 @@ public class CommandManagerTest {
             },
             {
                     "stop",
-                    new Stop()
+                    new Error()
             },
             {
                     "help",

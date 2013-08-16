@@ -2,6 +2,7 @@ package main;
 
 import manager.CommandManager;
 import scanner.FolderScanner;
+import validation.Checker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,9 +31,12 @@ public class Main {
             System.out.print(">");
             String input = scanIn.nextLine();
 
+            if (Checker.isNull(input)) {
+                continue;
+            }
             //создается менеджер
             CommandManager manager = new CommandManager();
-            //резолвится пользовательская бели... команда
+            //резолвится пользовательская команда
             manager.resolve(input);
             //... и выполняется
             manager.execute(threadMap);
